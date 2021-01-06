@@ -1,5 +1,4 @@
 import querystring from 'querystring';
-import config from "./config.json"
 
 const API_ROOT = '<YOUR_API_ROOT';
 
