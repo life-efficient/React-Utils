@@ -2,34 +2,34 @@ import React from "react"
 import Form from "./Form/Form"
 import { Auth } from "aws-amplify"
 import { connect } from "react-redux"
-import { css, jsx } from "@emotion/core"
-import { withTheme } from "@material-ui/core"
-import Navbar from "../Navbar"
-import { POST } from "../app/utils"
-/* @jsx jsx */
+import { makeStyles, withTheme } from "@material-ui/core"
+import { POST } from "../utils"
 
-const getStyle = props => css`
-    animation-duration: 1s;
-    // animation-direction: normal;
-    margin: auto;
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 80%;
-    background-color: ${props.theme.palette.primary.main};
-
-    > div {
-        margin: 0px;
-        max-width: 100%;
+const useStyles = makeStyles({
+    root: {
+        animationDuration: '1s',
+        // animation-direction: normal;
+        margin: 'auto',
+        width: '500px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxWidth: '80%',
+        backgroundColor: 'black',//${props.theme.palette.primary.main};
+        '& > div': {
+            margin: '0px',
+            maxWidth: '100%'
+        }
     }
-`
+})
 
 const Signup = props => {
+
+    const classes = useStyles()
+
     return(
     <React.Fragment>
-        <Navbar variant="teacher" col="dark"/>
-        <div css={getStyle(props)} >
+        <div css={classes.root} >
             <img src={props.logo} style={{height: '180px', margin: '20px'}} alt=""/>
             <Form 
                 redirect='/app/creator'

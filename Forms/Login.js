@@ -1,31 +1,29 @@
-/** @jsx jsx */
 import React, { Component, useState, useEffect } from "react";
 // import eye from "../images/see-icon.png"
 import { Redirect } from "react-router-dom"
-import { jsx, css, keyframes } from "@emotion/core"
 import { Auth } from "aws-amplify"
-import Navbar from "../Navbar"
-import { makeid } from "../utils"
 import Form from "./Form/Form"
-import { withTheme } from "@material-ui/core"
-import { connect } from "react-redux"
+import { withTheme, makeStyles } from "@material-ui/core"
+import { connect } from 'react-redux'
 
-const getStyle = props => css`
-  animation-duration: 1s;
-  // animation-direction: normal;
-  margin: auto;
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 80%;
-  background-color: ${props.theme.palette.primary.main};
+const useStyles = makeStyles({
+    root: {
+        animationDuration: '1s',
+        // animation-direction: normal;
+        margin: 'auto',
+        width: '500px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxWidth: '80%',
+        // backgroundColor: ${props.theme.palette.primary.main};
+        '& > div': {
+            margin: '0px',
+            maxWidth: '100%'
+        }
+    }
 
-  > div {
-    margin: 0px;
-    max-width: 100%;
-  }
-`
+})
 
 const Login = props => {
     const [password, setPassword] = useState('')
@@ -224,10 +222,11 @@ const Login = props => {
         }
     }
 
+    const classes = useStyles()
+
     return (
         <React.Fragment>
-            <Navbar variant="teacher" col="dark"/>
-            <div css={getStyle(props)} >
+            <div className={classes.root} >
                 <img src={props.logo} style={{height: '180px', margin: '20px'}} alt=""/>
                 {getPanel()}
             </div>

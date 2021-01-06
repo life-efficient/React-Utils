@@ -1,103 +1,102 @@
 import React, { useEffect, useState } from "react"
-import { withTheme, Button, CircularProgress } from "@material-ui/core"
-import { css, jsx } from "@emotion/core"
+import { withTheme, Button, CircularProgress, makeStyles } from "@material-ui/core"
 import { Redirect } from "react-router-dom"
 import TextResponse from "./Fields/TextField"
 import Password from "./Fields/Password"
 import ConfirmPassword from "./Fields/ConfirmPassword"
-/* @jsx jsx */
 
-const getStyle = props => {
-    return css`
-        width: 100%;
-        margin: 20px auto;
-        width: 400px; 
-        max-width: 80%;
-        border-radius: 3px;
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+        margin: '20px auto',
+        width: '400px',
+        maxWidth: '80%',
+        borderRadius: '3px',
             
-        position: relative;
-        align-items: center;
-        display: flex;
+        position: 'relative',
+        alignItems: 'center',
+        display: 'flex',
         // flex-direction: column;
-        justify-content: center;
-        background-color: ${props.theme.palette.primary.main};
+        justifyContent: 'center',
+        backgroundColor: 'lightgrey', //${props.theme.palette.primary.main};
         // background: linear-gradient(var(--color2), var(--color2g)); // doesn't work because forms have backgrounds and are placed on a panel in the login component so there is a color mismatch
-        color: ${props.theme.palette.primary.contrastText};
+        color: 'black',//${props.theme.palette.primary.contrastText};
 
-        display: flex;
-        flex-direction: row;
-        overflow-y: auto;
-        overflow-x: hidden;
-        justify-content: left;
+        display: 'flex',
+        flexDirection: 'row',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        justifyContent: 'left',
 
-        .title {
-            font-size: 30px;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
+        '& .title': {
+            fontSize: '30px',
+            marginBottom: '20px',
+            fontWeight: '900'
+        },
 
-        > .edit {
-            position: absolute;
-            height: 25px;
-            right: 10px;
-            top: 10px;
-            cursor: pointer;
-        }
+        '& > .edit': {
+            position: 'absolute',
+            height: '25px',
+            right: '10px',
+            top: '10px',
+            cursor: 'pointer'
+        },
 
-        .slide {
-            min-width: 100%; 
-            padding: 20px;
-            transition-duration: 0.5s;
-        }
+        '& .slide': {
+            minWidth: '100%',
+            padding: '20px',
+            transitionDuration: '0.5s',
+            boxSizing: 'border-box'
+        },
 
-        .form {
-
-            > .btn-container {
-                display: flex;
-                justify-content: center;
+        '& .form': {
+            '& > .btn-container': {
+                display: 'flex',
+                justifyContent: 'center'
                 // margin: 0 100px;
-            }
+            },
             
-            .field {
-                margin: 10px 0;
-            }
+            '& .field': {
+                margin: '10px 0'
+            },
 
-            .error {
-                font-size: 1.7rem;
-                padding-bottom: 10px;
-                color: #ff6666;
-                font-weight: 900;
-            }
+            '& .error': {
+                fontSize: '1.7rem',
+                paddingBottom: '10px',
+                color: '#ff6666',
+                fontWeight: '900'
+            },
 
-            input:-webkit-autofill,
-            input:-webkit-autofill:hover, 
-            input:-webkit-autofill:focus, 
-            input:-webkit-autofill:active  {
-                -webkit-box-shadow: 0 0 0 30px ${props.theme.palette.primary.main} inset !important;
-                -webkit-text-fill-color: ${props.theme.palette.primary.contrastText};
-            }
+            // '& input:-webkit-autofill',
+            // input:-webkit-autofill:hover, 
+            // input:-webkit-autofill:focus, 
+            // input:-webkit-autofill:active  {
+            //     -webkit-box-shadow: 0 0 0 30px ${props.theme.palette.primary.main} inset !important;
+            //     -webkit-text-fill-color: ${props.theme.palette.primary.contrastText};
+            // }
 
-            .detail {
-                font-size: 1.5rem;
-                padding-bottom: 10px;
-                font-weight: 300
-            }
+            '& .detail': {
+                fontSize: '1.5rem',
+                paddingBottom: '10px',
+                fontWeight: '300'
+            },
 
-            .MuiFormControl-root.MuiTextField-root{
-                label{
-                    color: ${props.theme.palette.primary.contrastText};
-                    font-size: 1.5rem;
+            '& .MuiFormControl-root.MuiTextField-root': {
+                '& label': {
+                    color: 'black',//${props.theme.palette.primary.contrastText};
+                    fontSize: '1.5rem'
+                },
+                '& input': {
+                    fontSize: '1.6rem',
+                    color: 'black',//${props.theme.palette.primary.contrastText};
                 }
-                input{
-                    font-size: 1.6rem;
-                    color: ${props.theme.palette.primary.contrastText};
-                }
             }
-        
-            `
-}
+        }
+    }
+})
 
 const Form = props => {
+    const classes = useStyles()
 
     const [responses, setResponses] = useState({})
     const [slide_idx, setSlideIdx] = useState(0)
@@ -160,7 +159,7 @@ const Form = props => {
     }
 
     return <React.Fragment>
-        <div css={getStyle(props)} >
+        <div className={classes.root} >
             {
                 props.slides.map((s) => {              // map question slides to that form slide
                     // console.log('question slide:', s)
@@ -173,7 +172,7 @@ const Form = props => {
                                     {s.subtitle}
                                 </div>
                             </div>
-                            <div css={css`display: flex; flex-direction: column;`}>
+                            <div style={{display: 'flex', flexDirection: 'column'}}>
                             {
                                 s.questions.map((q) => {                         // map question slide (list of objects) to the questions
                                     if (Object.keys(q).includes('conditional')) { // if question is conditional on some other response
